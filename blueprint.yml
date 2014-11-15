@@ -1,0 +1,12 @@
+name: toolbelt
+commands:
+  api:
+    start:
+      echo 'api starting...'
+    stop:
+      echo 'api stopping...'
+  redis:
+    start:
+      echo 'redis starting...'
+  mongo:
+    echo 'mongo starting...'

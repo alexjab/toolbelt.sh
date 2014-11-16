@@ -1,12 +1,29 @@
 name: toolbelt
+version: 0.0.1
+help: |
+  echo "Toolbelt v$TOOLBELT_VERSION"
+  echo ""
+  echo "Toolbelt usage:"
+  echo -e "  $TOOLBELT_NAME foo start \t starts foo"
+  echo -e "  $TOOLBELT_NAME foo stop \t stops foo"
+  echo -e "  $TOOLBELT_NAME bar start \t starts bar"
+  echo -e "  $TOOLBELT_NAME bar stop \t starts bar"
 commands:
-  api:
-    start:
-      echo 'api starting...'
-    stop:
-      echo 'api stopping...'
-  redis:
-    start:
-      echo 'redis starting...'
-  mongo:
-    echo 'mongo starting...'
+  foo:
+    start: |
+      echo 'starting foo...'
+      sleep 2
+      echo 'foo started !'
+    stop: |
+      echo 'stopping foo...'
+      sleep 2
+      echo 'foo stopped !'
+  bar:
+    start: |
+      echo 'starting bar ...'
+      sleep 2
+      echo 'bar started !'
+    stop: |
+      echo 'stopping bar...'
+      sleep 2
+      echo 'bar stopped !'

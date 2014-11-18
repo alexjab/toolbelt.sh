@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 
 import yaml
@@ -19,7 +22,7 @@ def build_toolbelt(blueprint):
   print '  ' + 'else'
 
   def search(node, level):
-    spaces = ''.join(['  ']*(level+1))
+    spaces = ''.join(['  ']*(level+2))
     if type(node) == dict:
       index = 0
       for param in node:

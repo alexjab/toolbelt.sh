@@ -53,6 +53,12 @@ def build_autocomplete(blueprint):
   toolbelt_version = blueprint['version']
 
   print ''
+  print 'if [ $ZSH_VERSION ]; then'
+  print '  autoload bashcompinit'
+  print '  bashcompinit'
+  print 'fi'
+
+  print ''
   print '_' + toolbelt_name + ' () {'
   print '  local cur opts'
   print '  COMPREPLY=()'

@@ -9,16 +9,11 @@ git clone https://github.com/alexjab/toolbelt.sh.git
 cd toolbelt.sh
 pip install -r requirements.txt
 
-# ...
+python build.py # to test if everything works
+python build.py > toolbelt.sh # to create your toolbelt
 
-python builder.py # to test if everything works
-python builder.py > toolbelt.sh # to create your toolbelt
-
-# ...
-
-echo 'source ~/<folder>/toolbelt.sh/toolbelt.sh' >> .profile # add your toolbelt to your environment
-
-# ...
+# add your toolbelt to your environment
+echo 'source ~/<folder>/toolbelt.sh/toolbelt.sh' >> .profile
 
 toolbelt foo bar # use your toolbelt
 ```
@@ -51,15 +46,15 @@ pip install -r requirements.txt
 Requirements: Python 2.7 and PyYaml.
 
 ##Usage
-`builder.py` is in charge of building the toolbelt; you need to pass it a yaml file as argument and redirect the output to a file (default is to stdout);
+`build.py` is in charge of building the toolbelt; you need to pass it a yaml file as argument and redirect the output to a file (default is to stdout);
 
 Example:
 
 ```
-python builder.py blueprint.yml > toolbelt.sh
+python build.py blueprint.yml > toolbelt.sh
 ```
 
-If you don't specify a file, `builder.py` will look for `blueprint.yml`.
+If you don't specify a file, `build.py` will look for `blueprint.yml`.
 
 ##Structure of the YAML file
 

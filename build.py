@@ -3,6 +3,9 @@
 
 import sys
 
+import codecs
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+
 import yaml
 
 def get_spaces(number):

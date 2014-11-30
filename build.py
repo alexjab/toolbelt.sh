@@ -15,16 +15,29 @@ def get_spaces(number):
 def build_toolbelt(blueprint):
 
   def print_toolbelt_function_top(blueprint):
-    print blueprint['name'] + ' () {'
-    print '  local TOOLBELT_NAME='+ blueprint['name'] + ';'
-    print '  local TOOLBELT_VERSION=' + blueprint['version'] + ';'
+    if 'name' in blueprint:
+      print blueprint['name'] + ' () {'
+      print '  local TOOLBELT_NAME='+ blueprint['name'] + ';'
+    else:
+      print 'toolbelt () {'
+      print '  local TOOLBELT_NAME=toolbelt;'
+    if 'version' in blueprint:
+      print '  local TOOLBELT_VERSION=' + blueprint['version'] + ';'
+    else:
+      print '  local TOOLBELT_VERSION=0.0.1;'
   
   def print_help():
-    spaces = get_spaces(2)
-    print spaces + 'if [ "$1"  = "help" ]; then'
-    for line in blueprint['help'].split('\n'):
-      if line:
-        print spaces + spaces + line
+    spaces = get_spaces(1)
+    if 'help' in blueprint:
+      print spaces + 'if [ "$1" = "help" ]; then'
+      for line in blueprint['help'].split('\n'):
+        if line:
+          print spaces + spaces + line
+      print spaces + 'elif [ "$1" = "version" ]; then'
+    else:
+      print spaces + 'if [ "$1" = "version" ]; then'
+
+    print spaces + spaces + 'echo "$TOOLBELT_NAME v$TOOLBELT_VERSION"'
     print spaces + 'else'
 
   def print_recursive_conditions(node, level):
@@ -56,6 +69,7 @@ def build_toolbelt(blueprint):
     print '}'
 
   print_toolbelt_function_top(blueprint)
+  print ''
   print_help()
   print_recursive_conditions(blueprint['commands'], 0)
   print_toolbelt_function_bottom()
@@ -69,8 +83,10 @@ def build_autocomplete(blueprint):
     print '  bashcompinit'
     print 'fi'
 
-  toolbelt_name = blueprint['name']
-  toolbelt_version = blueprint['version']
+  if 'name' in blueprint:
+    toolbelt_name = blueprint['name']
+  else:
+    toolbelt_name = 'blueprint'
 
   def print_ac_function_top():
     print '_' + toolbelt_name + ' () {'
@@ -103,7 +119,12 @@ def build_autocomplete(blueprint):
             print '    if [ $prev = "'+position_item[0]+'" ] ; then'
           else:
             print '    elif [ $prev = "'+position_item[0]+'" ] ; then'
-        print '      opts="'+position_item[1]+' help"'
+        helpers = ''
+        if 'help' in blueprint:
+          helpers += ' help'
+        if index == 0 and 'version' in blueprint:
+          helpers += ' version'
+        print '      opts="' + position_item[1] + helpers + '"'
         print '      COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )'
         print '      return 0'
         if position_item[0] and position_index == len(item)-1:

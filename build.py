@@ -30,7 +30,10 @@ def build_toolbelt(blueprint):
     spaces = get_spaces(1)
     if 'help' in blueprint:
       print spaces + 'if [ "$1" = "help" ]; then'
-      for line in blueprint['help'].split('\n'):
+      help_lines = blueprint['help']
+      if type(help_lines) != list:
+        help_lines = help_lines.split('\n')
+      for line in help_lines:
         if line:
           print spaces + spaces + line
       print spaces + 'elif [ "$1" = "version" ]; then'
@@ -60,7 +63,9 @@ def build_toolbelt(blueprint):
         index+=1
     # a leaf: we just have to print the script
     else:
-      for line in node.split('\n'):
+      if type(node) != list:
+        node = node.split('\n')
+      for line in node:
         if line:
           print spaces + line
 

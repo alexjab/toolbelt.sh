@@ -10,10 +10,10 @@ help: |
   echo -e "  $TOOLBELT_NAME bar down \t Downs bar"
 commands:
   foo:
-    start: |
-      echo 'starting foo...'
-      sleep 2
-      echo 'foo started !'
+    start:
+      - echo 'starting foo...'
+      - sleep 2
+      - echo 'foo started !'
     stop: |
       echo 'stopping foo...'
       sleep 2
